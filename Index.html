@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>የአገልግሎት ምዝገባ</title>
+  
+  <!-- Telegram Web App SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { box-sizing: border-box; font-family: 'Noto Sans Ethiopic', sans-serif; }
+    body { background-color: #f0f2f5; margin: 0; padding: 16px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+    .card { background: white; width: 100%; max-width: 450px; border-radius: 16px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    .header { text-align: center; margin-bottom: 20px; }
+    .logo { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #0088cc; }
+    .app-title { font-size: 1.2rem; font-weight: 700; color: #1a1a1a; margin: 4px 0 0 0; }
+    
+    .progress-bar { display: flex; justify-content: space-between; margin-bottom: 24px; position: relative; }
+    .progress-bar::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 3px; background: #e0e0e0; z-index: 1; transform: translateY(-50%); }
+    .progress-line { position: absolute; top: 50%; left: 0; height: 3px; background: #0088cc; z-index: 1; transform: translateY(-50%); transition: width 0.3s ease; width: 50%; }
+    .step-indicator { width: 30px; height: 30px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; font-weight: bold; z-index: 2; }
+    .step-indicator.active { background: #0088cc; color: white; }
+
+    .step { display: none; }
+    .step.active { display: block; }
+    .step-title { font-size: 1.1rem; color: #0088cc; border-bottom: 2px solid #f0f2f5; padding-bottom: 8px; }
+    
+    label { font-weight: 600; display: block; margin-top: 14px; margin-bottom: 6px; font-size: 0.95rem; }
+    select, textarea { width: 100%; padding: 12px; border: 1.5px solid #dcdfe6; border-radius: 8px; font-size: 0.95rem; outline: none; }
+    .btn-group { margin-top: 28px; display: flex; justify-content: space-between; gap: 12px; }
+    button { flex: 1; padding: 13px; border: none; background: #0088cc; color: white; font-weight: 600; border-radius: 8px; cursor: pointer; }
+    button.btn-back { background: #e4e6eb; color: #444; }
+    .required-star { color: #e53e3e; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Logo" class="logo">
+    <h2 class="app-title">የአገልግሎት ምዝገባ ፎርም</h2>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-line" id="progressLine"></div>
+    <div class="step-indicator active" id="ind1">1</div>
+    <div class="step-indicator" id="ind2">2</div>
+  </div>
+
+  <form id="multiStepForm">
+    <!-- Hidden Telegram Info -->
+    <input type="hidden" id="tgUserId" name="tgUserId">
+    <input type="hidden" id="tgFirstName" name="tgFirstName">
+    <input type="hidden" id="tgUsername" name="tgUsername">
+
+    <!-- PAGE 1 -->
+    <div class="step active" id="step1">
+      <h3 class="step-title">ደረጃ 1፡ ማገልገል የሚፈልጉበት ክፍል</h3>
+      <label for="select1">ዋና ክፍል <span class="required-star">*</span></label>
+      <select id="select1" name="select1" onchange="updateOptions()">
+        <option value="">-- ይምረጡ --</option>
+        <option value="ህዝብ ግንኙነትና ዋና ክፍል">ህዝብ ግንኙነትና ዋና ክፍል</option>
+        <option value="ትብብር አገልግሎት ዋና ክፍል">ትብብር አገልግሎት ዋና ክፍል</option>
+        <option value="ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል">ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል</option>
+      </select>
+
+      <label for="select2">ንዑስ ክፍል <span class="required-star">*</span></label>
+      <select id="select2" name="select2">
+        <option value="">-- አስቀድመው የመጀመሪያውን ይምረጡ --</option>
+      </select>
+
+      <div class="btn-group">
+        <button type="button" onclick="goToStep(2)">ቀጣይ (Next) &rarr;</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="step" id="step2">
+      <h3 class="step-title">ደረጃ 2፡ የአገልግሎት ሁኔታና አስተያየት</h3>
+      <label for="select3">በ2019 የአገልግሎት ዓመት በምን መልኩ ለማገልገል ይፈልጋሉ? <span class="required-star">*</span></label>
+      <select id="select3" name="select3">
+        <option value="">-- ይምረጡ --</option>
+        <option value="በአካል በመገኘት የሚሠሩ ሥራዎችን መስራት">በአካል በመገኘት የሚሠሩ ሥራዎችን መስራት</option>
+        <option value="በአሉበት ሆነው በስልክ ብቻ የሚሠሩ">በአሉበት ሆነው በስልክ ብቻ የሚሠሩ</option>
+        <option value="በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ">በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ</option>
+      </select>
+
+      <label for="shortAnswer">አስተያየትዎ: <span class="required-star">*</span></label>
+      <textarea id="shortAnswer" name="shortAnswer" rows="4" placeholder="አስተያየትዎን እዚህ ይጻፉ..."></textarea>
+
+      <div class="btn-group">
+        <button type="button" class="btn-back" onclick="goToStep(1)">&larr; ተመለስ</button>
+        <button type="button" id="submitBtn" onclick="submitData()">Submit (ላክ)</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Google Apps Script URL (ከደረጃ 1 ያገኙትን እዚህ ይተኩ)
+  const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+
+  // Telegram User Information በራስ-ሰር ይይዛል
+  if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    document.getElementById('tgUserId').value = tg.initDataUnsafe.user.id || '';
+    document.getElementById('tgFirstName').value = tg.initDataUnsafe.user.first_name || '';
+    document.getElementById('tgUsername').value = tg.initDataUnsafe.user.username || '';
+  }
+
+  function updateOptions() {
+    const val1 = document.getElementById("select1").value;
+    const select2 = document.getElementById("select2");
+    select2.innerHTML = '<option value="">-- ይምረጡ --</option>';
+
+    let options = [];
+    if (val1 === "ህዝብ ግንኙነትና ዋና ክፍል") {
+      options = ["ኩነት", "ነባር አባላት", "የውጭ ግንኙነት", "አውታር", "ማህበራው ሚዲያ"];
+    } else if (val1 === "ትብብር አገልግሎት ዋና ክፍል") {
+      options = ["ሰንበት ት/ቤት", "ማኅበራት", "አጋር አካላት", "ባላድርሻ አካላት"];
+    } else if (val1 === "ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል") {
+      options = ["ቅድመ ግቢ ጉባኤ", "ድህረ ግቢ ጉባኤ"];
+    }
+
+    options.forEach(opt => {
+      let el = document.createElement("option");
+      el.textContent = opt;
+      el.value = opt;
+      select2.appendChild(el);
+    });
+  }
+
+  function goToStep(stepNumber) {
+    if (stepNumber === 2) {
+      if (!document.getElementById("select1").value || !document.getElementById("select2").value) {
+        alert("እባክዎን ገጽ 1 ላይ ያሉትን ሁሉንም ምርጫዎች ይሙሉ!");
+        return;
+      }
+    }
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + stepNumber).classList.add('active');
+    
+    document.getElementById('progressLine').style.width = stepNumber === 1 ? '50%' : '100%';
+    if (stepNumber === 2) document.getElementById('ind2').classList.add('active');
+    else document.getElementById('ind2').classList.remove('active');
+  }
+
+  function submitData() {
+    const s3 = document.getElementById("select3").value;
+    const ans = document.getElementById("shortAnswer").value.trim();
+
+    if (!s3 || !ans) {
+      alert("እባክዎን ሁሉንም ቦታዎች በትክክል ይሙሉ!");
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerText = "እየተላከ ነው...";
+
+    const payload = {
+      tgUserId: document.getElementById('tgUserId').value,
+      tgFirstName: document.getElementById('tgFirstName').value,
+      tgUsername: document.getElementById('tgUsername').value,
+      select1: document.getElementById('select1').value,
+      select2: document.getElementById('select2').value,
+      select3: document.getElementById('select3').value,
+      shortAnswer: document.getElementById('shortAnswer').value
+    };
+
+    // fetch በመጠቀም ዳታውን ወደ Google Apps Script መላክ
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors', // CORS ችግር እንዳይፈጥር
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(() => {
+      alert("መረጃዎ በስኬት ተልኳል! አመሰግናለሁ።");
+      tg.close();
+    })
+    .catch(error => {
+      alert("ስህተት አጋጥሟል! እባክዎ ድጋሚ ይሞክሩ።");
+      btn.disabled = false;
+      btn.innerText = "Submit (ላክ)";
+    });
+  }
+</script>
+</body>
+</html>
