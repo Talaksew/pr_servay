@@ -63,6 +63,7 @@
     <!-- PAGE 1 -->
     <div class="step active" id="step1">
       <h3 class="step-title"> በ<strong>2019 ዓ.ም</strong> ማገልገል የሚፈልጉበት ክፍል</h3>
+<p>በአገልግሎት በቆየንባቸው በነዚህ ጊዜያት ያወቅነውን ፣ የምንረዳውን ፣ እንዲሁም ለቅድስት ቤተክርስቲያን የምናስበውን መሠረት አድርገን ፈቃዳችሁን በመጠየቅ እንድንሞላ እንልዎታለን</p>
       <label for="select1">ዋና ክፍል <span class="required-star">*</span></label>
       <select id="select1" name="select1" onchange="updateOptions()">
         <option value="">-- ይምረጡ --</option>
@@ -84,7 +85,7 @@
           <option value="ለላልታወቀ ጊዜ (በቋሚነት)">ለላልታወቀ ጊዜ (በቋሚነት)</option>
         </select>
 </div>
-      <label for="select2">ንዑስ ክፍል <span class="required-star">*</span></label>
+      <label for="select2">ክፍል / ንዑስ ክፍል <span class="required-star">*</span></label>
       <select id="select2" name="select2">
         <option value="">-- አስቀድመው የመጀመሪያውን ይምረጡ --</option>
       </select>
@@ -139,7 +140,7 @@
 
     let options = [];
     if (val1 === "ህዝብ ግንኙነትና ዋና ክፍል") {
-      options = ["ኩነት (ውስጥ ግንኙነት)", "ነባር አባላት(ውስጥ ግንኙነት)", "የውጭ ግንኙነት", "አውታር (ማህበራው ሚዲያ)", "መጽሔተ ተልዕኮ (ማህበራው ሚዲያ"];
+      options = ["ኩነት (ውስጥ ግንኙነት)", "ነባር አባላት(ውስጥ ግንኙነት)", "የውጭ ግንኙነት", "አውታር (ማህበራዊ ሚዲያ)", "መጽሔተ ተልዕኮ (ማህበራዊ ሚዲያ"];
     } else if (val1 === "ትብብር አገልግሎት ዋና ክፍል") {
       options = ["አጋር አካላት", "ባላድርሻ አካላት"];
     } else if (val1 === "ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል") {
