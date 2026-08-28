@@ -69,8 +69,21 @@
         <option value="ህዝብ ግንኙነትና ዋና ክፍል">ህዝብ ግንኙነትና ዋና ክፍል</option>
         <option value="ትብብር አገልግሎት ዋና ክፍል">ትብብር አገልግሎት ዋና ክፍል</option>
         <option value="ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል">ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል</option>
-      </select>
-
+        <option value="በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ">በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ</option>
+       </select>
+      <!-- የእረፍት ጊዜ መምረጫ (ለጊዜው የተሸሸገ) -->
+      
+     <div id="restDurationBox" style="display: none; margin-top: 14px;">
+        <label for="restDuration">ለስንት ጊዜ እረፍት ይፈልጋሉ? <span class="required-star">*</span></label>
+        <select id="restDuration" name="restDuration">
+          <option value="">-- የእረፍት ጊዜ ይምረጡ --</option>
+          <option value="ለ 1 ወር">ለ 1 ወር</option>
+          <option value="ለ 3 ወር">ለ 3 ወር</option>
+          <option value="ለ 6 ወር">ለ 6 ወር</option>
+          <option value="ለ 1 ዓመት">ለ 1 ዓመት</option>
+          <option value="ለላልታወቀ ጊዜ (በቋሚነት)">ለላልታወቀ ጊዜ (በቋሚነት)</option>
+        </select>
+</div>
       <label for="select2">ንዑስ ክፍል <span class="required-star">*</span></label>
       <select id="select2" name="select2">
         <option value="">-- አስቀድመው የመጀመሪያውን ይምረጡ --</option>
@@ -89,21 +102,9 @@
         <option value="">-- ይምረጡ --</option>
         <option value="በአካል በመገኘት የሚሠሩ ሥራዎችን መስራት">በአካል በመገኘት የሚሠሩ ሥራዎችን መስራት</option>
         <option value="በአሉበት ሆነው በስልክ ብቻ የሚሠሩ">በአሉበት ሆነው በስልክ ብቻ የሚሠሩ</option>
-        <option value="በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ">በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ</option>
-      </select>
-
-      <!-- የእረፍት ጊዜ መምረጫ (ለጊዜው የተሸሸገ) -->
-      <div id="restDurationBox" style="display: none; margin-top: 14px;">
-        <label for="restDuration">ለስንት ጊዜ እረፍት ይፈልጋሉ? <span class="required-star">*</span></label>
-        <select id="restDuration" name="restDuration">
-          <option value="">-- የእረፍት ጊዜ ይምረጡ --</option>
-          <option value="ለ 1 ወር">ለ 1 ወር</option>
-          <option value="ለ 3 ወር">ለ 3 ወር</option>
-          <option value="ለ 6 ወር">ለ 6 ወር</option>
-          <option value="ለ 1 ዓመት">ለ 1 ዓመት</option>
-          <option value="ለላልታወቀ ጊዜ (በቋሚነት)">ለላልታወቀ ጊዜ (በቋሚነት)</option>
         </select>
-      </div>
+
+      
 
       <label for="shortAnswer">አገልግሎታችንን የተቃና ለማድረግ እና  ሁላችንም የምንሳተፍበት ይሆን ዘንድ እርስዎ ምን እንዲስተካከል ወይም እንዲሻሻል ይፈልጋሉ? <span class="required-star">*</span></label>
       <textarea id="shortAnswer" name="shortAnswer" rows="4" placeholder="አስተያየትዎን እዚህ ይጻፉ..."></textarea>
