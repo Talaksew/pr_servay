@@ -74,6 +74,7 @@
         <option value="ሕዝብ ግንኙነት ዋና ክፍል">ሕዝብ ግንኙነት ዋና ክፍል</option>
         <option value="ትብብር አገልግሎት ዋና ክፍል">ትብብር አገልግሎት ዋና ክፍል</option>
         <option value="ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል">ቅድመና ድህረ ግቢ ጉባኤያት ዋና ክፍል</option>
+        <option value="ክፍል ሳልመርጥ በምችለው ሁሉ አገለግላለሁ">ክፍል ሳልመርጥ በምችለው ሁሉ  አገለግላለሁ</option>
         <option value="በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ">በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ</option>
       </select>
 
@@ -151,7 +152,12 @@
 
     select2.innerHTML = '<option value="">-- ይምረጡ  --</option>';
 
-    if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ") {
+    if (val1 === "ክፍል ሳልመርጥ በምችለው ሁሉ  አገለግላለሁ") {
+      restBox.style.display = "none";
+      subDeptBox.style.display = "none";
+      select2.value = "";
+      document.getElementById("restDuration").value = "";
+    }else if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ") {
       restBox.style.display = "block";
       subDeptBox.style.display = "none";
       select2.value = "";
@@ -230,12 +236,19 @@
     btn.disabled = true;
     btn.innerText = "እየተላከ ነው...";
 
+let subDeptValue = "ያልተመረጠ";
+    if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ" || val1 === "ክፍል ሳልመርጥ በምችለው ሁሉ  አገለግላለሁ") {
+      subDeptValue = "---";
+    } else if (val2) {
+      subDeptValue = val2;
+    }
+    
     const payload = {
       tgUserId: document.getElementById('tgUserId').value,
       tgFirstName: document.getElementById('tgFirstName').value,
       tgUsername: document.getElementById('tgUsername').value,
       select1: val1,
-      select2: val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ" ? "---" : (val2 ? val2 : "ያልተመረጠ"),
+      select2: val1 === subDeptValue,
       select3: val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ" ? `እረፍት (${restDuration})` : s3,
       shortAnswer: ans
     };
