@@ -144,20 +144,20 @@
     document.getElementById('tgUsername').value = tg.initDataUnsafe.user.username || '';
   }
 
-  function updateOptions() {
+function updateOptions() {
     const val1 = document.getElementById("select1").value;
     const select2 = document.getElementById("select2");
     const restBox = document.getElementById("restDurationBox");
     const subDeptBox = document.getElementById("subDepartmentBox");
 
-    select2.innerHTML = '<option value="">-- ይምረጡ  --</option>';
+    select2.innerHTML = '<option value="">-- ይምረጡ --</option>';
 
-    if (val1 === "ክፍል ሳልመርጥ በምችለው ሁሉ  አገለግላለሁ") {
+    if (val1 === "ክፍል ሳልመርጥ በምችለው ሁሉ አገለግላለሁ") {
       restBox.style.display = "none";
       subDeptBox.style.display = "none";
       select2.value = "";
       document.getElementById("restDuration").value = "";
-    }else if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ") {
+    } else if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ") {
       restBox.style.display = "block";
       subDeptBox.style.display = "none";
       select2.value = "";
@@ -202,7 +202,6 @@
         }
         serviceStatusBox.style.display = "none";
       } else {
-        // ንዑስ ክፍል አልተገደደም፤ ሳይመረጥ ማለፍ ይቻላል
         serviceStatusBox.style.display = "block";
       }
     }
@@ -236,8 +235,8 @@
     btn.disabled = true;
     btn.innerText = "እየተላከ ነው...";
 
-let subDeptValue = "ያልተመረጠ";
-    if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ" || val1 === "ክፍል ሳልመርጥ በምችለው ሁሉ  አገለግላለሁ") {
+    let subDeptValue = "ያልተመረጠ";
+    if (val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ" || val1 === "ክፍል ሳልመርጥ በምችለው ሁሉ አገለግላለሁ") {
       subDeptValue = "---";
     } else if (val2) {
       subDeptValue = val2;
@@ -248,7 +247,7 @@ let subDeptValue = "ያልተመረጠ";
       tgFirstName: document.getElementById('tgFirstName').value,
       tgUsername: document.getElementById('tgUsername').value,
       select1: val1,
-      select2: subDeptValue,
+      select2: subDeptValue, // ✅ ተስተካክሏል
       select3: val1 === "በዚህ ዓመት ስለማይመቸኝ እረፍት ይሰጠኝ" ? `እረፍት (${restDuration})` : s3,
       shortAnswer: ans
     };
